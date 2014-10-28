@@ -1,23 +1,17 @@
 DESCRIPTION = "A fully featured image for apro"
 LICENSE = "GPL"
 
-inherit core-image
+require recipes-images/angstrom/development-xfce-image.bb
+require recipes-core/images/core-image-ros-roscore.bb
 
-DEPENDS = "core-image-ros-roscore"
+EXTRA_IMAGE_FEATURES += "debug-tweaks"
 
-IMAGE_FRATURES += "debug_tweaks ssh-server-openssh"
+IMAGE_INSTALL += "\
+	nano \
+	roslaunch \
+	imuraw-gy88 \
+	imu-filter-madgwick \
+	python-pip \
+	git"
 
-CORE_IMAGE_EXTRA_INSTALL += " nano \
-        imuraw-gy88 \
-        imu-filter \
-        i2c-tools \
-        opkg \
-        vim \
-        hostapd \
-        wireless-tools \
-        net-tools \
-        packagegroup-core-ssh-openssh \
-        packagegroup-core-buildessential \
-        packagegroup-core-full-cmdline \
-        rosbash \
-        rostopic"
+export IMAGE_BASENAME = "apro-image"
